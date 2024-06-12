@@ -1,0 +1,5 @@
+{
+  "testFiles": "**/*.feature",
+  "pluginsFile": "cypress/plugins/index.ts",
+  "supportFile": "cypress/support/index.ts"
+}

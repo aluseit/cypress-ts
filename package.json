@@ -1,0 +1,37 @@
+{
+  "name": "cypress-ts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test:open:chrome": "cypress open --e2e -b chrome",
+    "test:stories": "cypress run --e2e -b chrome --spec **/stories.cy.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@badeball/cypress-cucumber-preprocessor": "^20.0.6",
+    "@bahmutov/cypress-esbuild-preprocessor": "^2.2.1",
+    "@cypress/webpack-preprocessor": "^6.0.2",
+    "cypress": "^13.11.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  },
+  "cypress-cucumber-preprocessor": {
+    "messages": {
+      "enabled": true,
+      "output": "./reports/cucumber-messages.ndjson"
+    },
+    "html": {
+      "enabled": true,
+      "output": "./reports/html/index.html"
+    },
+    "stepDefinitions": [
+      "cypress/support/step_definitions/*.steps.{js,ts}"
+    ],
+    "filterSpecs": true,
+    "omitFiltered": true,
+    "nonGlobalStepDefinitions": true
+  }
+}
