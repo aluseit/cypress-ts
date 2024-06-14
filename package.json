@@ -28,7 +28,7 @@
       "output": "./reports/html/index.html"
     },
     "stepDefinitions": [
-      "cypress/support/step_definitions/*.steps.{js,ts}"
+      "cypress/step_definitions/*.steps.{js,ts}"
     ],
     "filterSpecs": true,
     "omitFiltered": true,
