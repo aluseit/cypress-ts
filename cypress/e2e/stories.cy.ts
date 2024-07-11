@@ -1,26 +1,12 @@
 // const { describe } = require("mocha");
 import StoriesArchive from "../page-objects/storiesArchive";
 
-const storiesArchive = new StoriesArchive()
-
-function toggleFilter (filterName : string, checkboxName : string, select : boolean){
-    const filterSelector = (`[aria-controls="accordion-panel-${filterName}"]`)
-    const checkboxSelector = (`input[name=${checkboxName}]`)
-    
-    storiesArchive.filtersBtn().click()
-    cy.get(filterSelector).click({force: true});
-    
-    if(select){
-        cy.get(checkboxSelector).check({force: true})
-    }
-    else {
-        cy.get(checkboxSelector).uncheck({force: true});
-    }
-}
+// export default class Stories { 
 
 beforeEach(() => {
     cy.visit('/en/stories/archive');
 });
+const storiesArchive = new StoriesArchive()
 
 describe("Stories Archive page quick general testing", () => {
     it("should stories archive general test", () => {
@@ -61,7 +47,7 @@ describe('Filter Button Functionality', () => {
     });
     
     it('should check checkbox for selected filter tag when filter is chosen', () => {
-        toggleFilter('storyMedia', 'Video', true); 
+        storiesArchive.toggleFilter('storyMedia', 'Video', true); 
 
         cy.get('input[name="Video"]')
             .should('be.checked');
@@ -71,7 +57,7 @@ describe('Filter Button Functionality', () => {
     });
 
     it('should uncheck checkbox for selected filter tag when filter is unselected', () => {
-        toggleFilter('storyMedia', 'Video', false);
+        storiesArchive.toggleFilter('storyMedia', 'Video', false);
 
         cy.get('input[name="Video"]')
             .should('not.be.checked');
@@ -80,15 +66,15 @@ describe('Filter Button Functionality', () => {
     });
 
     it('should check that number of selected filter is displayed correctly', () => {
-        toggleFilter('departments', 'Jewellery', true)
+        storiesArchive.toggleFilter('departments', 'Jewellery', true)
 
         storiesArchive.filterBadgeBtn()
             .should('have.text', '1')
     });
 
     it('should clear all selected filters', () => {
-        toggleFilter('storyCategories', 'Luxury', true)
-        toggleFilter('departments', 'Jewellery', true)
+        storiesArchive.toggleFilter('storyCategories', 'Luxury', true)
+        storiesArchive.toggleFilter('departments', 'Jewellery', true)
         
         storiesArchive.filterBadgeBtn()
             .should('have.text', '2')
@@ -129,7 +115,7 @@ describe('load more button test', () => {
     });
 });
 
-describe('sigin functionality testing', () => {
+describe('sign in functionality testing', () => {
     it('should sigin with valid credentials', () => {
         storiesArchive.signIn('alya_98@mail.ru', 'Halamadrid4')
         cy.get(storiesArchive.logOutBtn).should('have.text', 'Log out')
@@ -163,4 +149,3 @@ describe('search from header', () => {
         storiesArchive.searchForKeyword('andy')
     })
 });
-

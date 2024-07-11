@@ -3,6 +3,7 @@ import Base from './base'
 export default class StoriesArchive extends Base{
   // Locators
   filterButtonNames = (['Medium', 'Category', 'Department', 'Series'])
+  cy: any
   
   filtersBtn () {
     return cy.get('[data-qa="filter-bar"] > button')
@@ -43,4 +44,18 @@ export default class StoriesArchive extends Base{
   loadMoreBtn () {
     return cy.get('[data-qa="load-more-button"]')
   }
+  toggleFilter (filterName : string, checkboxName : string, select : boolean){
+    const filterSelector = (`[aria-controls="accordion-panel-${filterName}"]`)
+    const checkboxSelector = (`input[name=${checkboxName}]`)
+    
+    this.filtersBtn().click()
+    cy.get(filterSelector).click({force: true});
+    
+    if(select){
+        cy.get(checkboxSelector).check({force: true})
+    }
+    else {
+        cy.get(checkboxSelector).uncheck({force: true});
+    }
+}
 }
